@@ -87,8 +87,7 @@
         let columnCount;
 
         function imageClickHandler(imageId) {
-            Telegram.WebApp.sendData(JSON.stringify({imageId: imageId}));
-            Telegram.WebApp.close();
+            Telegram.WebApp.sendData(JSON.stringify({imageId: JSON.stringify(imageId)}));
         }
 
         const images = [
