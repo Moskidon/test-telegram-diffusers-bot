@@ -87,7 +87,7 @@
         let columnCount;
 
         function imageClickHandler(imageId) {
-            Telegram.WebApp.sendData(JSON.stringify({imageId: JSON.stringify(imageId)}));
+            Telegram.WebApp.sendData(JSON.stringify({imageId: imageId}));
         }
 
         const images = [
@@ -123,7 +123,7 @@
                             <div class="gallery-item-text">${image.title}</div>
                         </a>
                     `;
-                div.addEventListener('click', () => imageClickHandler(image.id));
+                div.addEventListener('click', () => imageClickHandler(index));
                 columns[index % columns.length].appendChild(div);
             });
         }
