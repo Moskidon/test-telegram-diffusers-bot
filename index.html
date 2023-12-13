@@ -6,76 +6,161 @@
     <title>Browse Models</title>
     <style>
         body {
-            --bg-color: var(--tg-theme-bg-color, #fff);
+            --bg-color: var(--tg-theme-bg-color, #000);
             font-family: sans-serif;
             background-color: var(--bg-color);
-            color: var(--tg-theme-text-color, #222);
+            color: var(--tg-theme-text-color, #fff);
             font-size: 14px;
             margin: 0;
             padding: 0;
             color-scheme: var(--tg-color-scheme);
         }
+
         .container {
             width: 90%;
             margin: auto;
             overflow: hidden;
         }
+
         .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            grid-gap: 15px;
+            display: flex;
+            flex-wrap: wrap;
             margin-top: 20px;
+            justify-content: center;
         }
+
+        .gallery-column {
+            width: 200px;
+            margin-right: 15px;
+        }
+
+        .gallery-column:last-child {
+            margin-right: 0;
+        }
+
         .gallery-item {
             margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
         }
+
         .gallery-item img {
-            width: 100%;
+            width: 200px;
             height: auto;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+            transition: 0.3s ease;
         }
+
         .gallery-item a {
             text-decoration: none;
-            color: #333;
+            color: var(--tg-theme-text-color, #fff);
             text-align: center;
             display: block;
             margin-top: 5px;
         }
+
+        .gallery-item-text {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* затемненный фон */
+            color: #fff;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            transition: 0.3s ease;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Browse Models</h1>
-        <div id="gallery" class="gallery">
-            <!-- Images will be loaded here -->
-        </div>
+<div class="container">
+    <h1>Browse Models</h1>
+    <div id="gallery" class="gallery">
+        <!-- Images will be loaded here -->
     </div>
+</div>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Telegram.WebApp.ready();
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Telegram.WebApp.ready();
 
-            const gallery = document.getElementById('gallery');
-            const images = [
-                { src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg', url: 'https://civitai.com/images/4436602', title: 'SD XL TURBO' },
-                { src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg', url: 'https://civitai.com/images/4439807', title: 'SD 1.5' },
-            ];
+        const gallery = document.getElementById('gallery');
+        let columnCount;
 
-            images.forEach(image => {
+        const images = [
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
+                url: 'https://civitai.com/images/4436602',
+                title: 'SD XL TURBO'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
+                url: 'https://civitai.com/images/4436602',
+                title: 'SD XL TURBO'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
+                url: 'https://civitai.com/images/4436602',
+                title: 'SD XL TURBO'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
+                url: 'https://civitai.com/images/4439807',
+                title: 'SD 1.5'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
+                url: 'https://civitai.com/images/4439807',
+                title: 'SD 1.5'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
+                url: 'https://civitai.com/images/4436602',
+                title: 'SD XL TURBO'
+            },
+            {
+                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
+                url: 'https://civitai.com/images/4439807',
+                title: 'SD 1.5'
+            },
+        ];
+
+        function createColumns(count) {
+            gallery.innerHTML = ''; // Очищаем галерею
+            for (let i = 0; i < count; i++) {
+                const column = document.createElement('div');
+                column.className = 'gallery-column';
+                gallery.appendChild(column);
+            }
+        }
+
+        function distributeImages() {
+            const columns = document.querySelectorAll('.gallery-column');
+            images.forEach((image, index) => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
                 div.innerHTML = `
-                    <a href="${image.url}" target="_blank">
-                        <img src="${image.src}" alt="${image.title}">
-                        <span>${image.title}</span>
-                    </a>
-                `;
-                gallery.appendChild(div);
+                        <a href="${image.url}" target="_blank">
+                            <img src="${image.src}" alt="${image.title}">
+                            <div class="gallery-item-text">${image.title}</div>
+                        </a>
+                    `;
+                columns[index % columns.length].appendChild(div);
             });
-        });
-    </script>
+        }
+
+        function adjustGallery() {
+            const galleryWidth = gallery.offsetWidth;
+            const newColumnCount = Math.floor(galleryWidth / 200);
+            if (columnCount !== newColumnCount) {
+                columnCount = newColumnCount;
+                createColumns(columnCount);
+                distributeImages();
+            }
+        }
+
+        window.addEventListener('resize', adjustGallery);
+        adjustGallery(); // Вызываем при первоначальной загрузке
+    });
+</script>
 </body>
 </html>
