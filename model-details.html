@@ -43,12 +43,16 @@
     </div>
 
 </div>
-<!--<script src="https://telegram.org/js/telegram-web-app.js"></script>-->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        Telegram.WebApp.ready();
         var params = new URLSearchParams(window.location.search);
         var imageId = params.get('imageId');
-        // Use imageId to fetch and display image details
+        Telegram.WebApp.BackButton.show();
+        Telegram.WebApp.BackButton.onclick(()=>{
+            window.location.href = 'index.html';
+        })
     });
 </script>
 </body>
