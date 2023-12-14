@@ -74,7 +74,6 @@
 <div class="container">
     <h1>Browse Models</h1>
     <div id="gallery" class="gallery">
-        <!-- Images will be loaded here -->
     </div>
 </div>
 
@@ -85,14 +84,6 @@
 
         const gallery = document.getElementById('gallery');
         let columnCount;
-
-        function imageClickHandler(imageId) {
-            window.location.href = 'model-details.html?imageId=' + imageId;
-        }
-
-        function imageClickHandler(imageId) {
-            Telegram.WebApp.sendData(JSON.stringify({imageId: imageId}));
-        }
 
         const images = [
             {
@@ -178,8 +169,6 @@
                 </a>
             `;
                 columns[index % columns.length].appendChild(div);
-
-                // document.getElementById(`link-${index}`).setAttribute('href', `model-details.html?imageId=${index}` + location.hash);
             });
         }
 
@@ -189,7 +178,6 @@
             distributeImages();
         }
 
-        window.addEventListener('resize', adjustGallery);
         adjustGallery();
     });
 </script>
