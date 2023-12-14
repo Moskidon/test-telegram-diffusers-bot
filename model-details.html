@@ -87,7 +87,7 @@
 
         document.getElementById('use-settings-button').addEventListener('click', function () {
             var guidanceScale = document.getElementById('guidance-scale').value;
-            Telegram.WebApp.sendData(JSON.stringify({guidanceScale: guidanceScale}));
+            Telegram.WebApp.sendData(JSON.stringify({guidanceScale: guidanceScale, modelId: imageId}));
         });
     });
 </script>
