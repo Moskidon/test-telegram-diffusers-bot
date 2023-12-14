@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Models</title>
     <style>
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
         body {
             --bg-color: var(--tg-theme-bg-color, #000);
             font-family: sans-serif;
@@ -70,7 +81,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-transition">
 <div class="container">
     <h1>Browse Models</h1>
     <div id="gallery" class="gallery">
@@ -79,7 +90,14 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
+    const body = document.body;
+    body.classList.add('page-enter');
+
+
     document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+            body.classList.remove('page-enter');
+        }, 500);
         Telegram.WebApp.ready();
 
         const gallery = document.getElementById('gallery');

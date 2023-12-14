@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Details</title>
     <style>
+
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-enter {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
         body, html {
             height: 100%;
             font-family: sans-serif;
@@ -74,27 +86,32 @@
 
     </style>
 </head>
-<body>
+<body class="page-transition">
 <div id="image-container">
     <div class="inputs-group">
         <div class="input-container">
             <label for="guidance-scale">Guidance Scale:</label>
-            <input type="number" id="guidance-scale" name="guidance-scale" value="7.5" step="0.5">
+            <input type="number" id="guidance-scale" name="guidance-scale" value="7.5" step="0.5" min="0" max="20">
         </div>
         <div class="input-container">
             <label for="images-count">Images Count:</label>
-            <input type="number" id="images-count" name="images-count" value="4" step="1">
+            <input type="number" id="images-count" name="images-count" value="4" step="4" min="4" max="16">
         </div>
         <div class="input-container">
             <label for="steps">Steps:</label>
-            <input type="number" id="steps" name="steps" value="25" step="1">
+            <input type="number" id="steps" name="steps" value="25" step="1" min="1" max="50">
         </div>
     </div>
     <button class="telegram-button" id="use-settings-button">Use these settings</button>
 </div>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
+    const body = document.body;
+    body.classList.add('page-enter');
     document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(() => {
+            body.classList.remove('page-enter');
+        }, 500);
         Telegram.WebApp.ready();
         var params = new URLSearchParams(window.location.search);
         var imageId = params.get('imageId');
