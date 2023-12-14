@@ -75,6 +75,7 @@
     </style>
 </head>
 <body>
+<div id="#init-data-container">aaa</div>
 <div id="image-container">
     <div class="inputs-group">
         <div class="input-container">
@@ -96,6 +97,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Telegram.WebApp.ready();
+        var initData = Telegram.WebApp.initData;
+        document.getElementById('init-data-container').innerText = JSON.stringify(initData, null, 2);
         var params = new URLSearchParams(window.location.search);
         var imageId = params.get('imageId');
         Telegram.WebApp.BackButton.show();
