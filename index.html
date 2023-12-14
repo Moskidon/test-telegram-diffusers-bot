@@ -87,6 +87,10 @@
         let columnCount;
 
         function imageClickHandler(imageId) {
+            window.location.href = 'model-details.html?imageId=' + imageId;
+        }
+
+        function imageClickHandler(imageId) {
             Telegram.WebApp.sendData(JSON.stringify({imageId: imageId}));
         }
 
@@ -118,12 +122,11 @@
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
                 div.innerHTML = `
-                        <a target="_blank">
-                            <img src="${image.src}" alt="${image.title}">
-                            <div class="gallery-item-text">${image.title}</div>
-                        </a>
-                    `;
-                div.addEventListener('click', () => imageClickHandler(index));
+                <a href="model-details.html?imageId=${index}" target="_blank">
+                    <img src="${image.src}" alt="${image.title}">
+                    <div class="gallery-item-text">${image.title}</div>
+                </a>
+            `;
                 columns[index % columns.length].appendChild(div);
             });
         }
