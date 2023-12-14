@@ -51,7 +51,8 @@
         var imageId = params.get('imageId');
         Telegram.WebApp.BackButton.show();
         Telegram.WebApp.BackButton.onclick(() => {
-            window.location.href = '/' + location.hash;
+            window.location.href = 'index.html' + location.hash;
+            Telegram.WebApp.BackButton.hide();
         })
     });
     document.addEventListener("click", () => {
