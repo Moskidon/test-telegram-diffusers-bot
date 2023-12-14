@@ -122,12 +122,14 @@
                 const div = document.createElement('div');
                 div.className = 'gallery-item';
                 div.innerHTML = `
-                <a href="model-details.html?imageId=${index}">
+                <a href="model-details.html?imageId=${index}" id="link-${index}">
                     <img src="${image.src}" alt="${image.title}">
                     <div class="gallery-item-text">${image.title}</div>
                 </a>
             `;
                 columns[index % columns.length].appendChild(div);
+
+                document.getElementById(`link-${index}`).setAttribute('href', `model-details.html?imageId=${index}` + location.hash);
             });
         }
 
