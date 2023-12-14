@@ -6,17 +6,6 @@
     <title>Image Details</title>
     <style>
 
-        .page-transition {
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .page-enter {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
         body, html {
             height: 100%;
             font-family: sans-serif;
@@ -86,7 +75,7 @@
 
     </style>
 </head>
-<body class="page-transition">
+<body>
 <div id="image-container">
     <div class="inputs-group">
         <div class="input-container">
@@ -106,12 +95,7 @@
 </div>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
-    const body = document.body;
-    body.classList.add('page-enter');
     document.addEventListener('DOMContentLoaded', function () {
-        setTimeout(() => {
-            body.classList.remove('page-enter');
-        }, 500);
         Telegram.WebApp.ready();
         var params = new URLSearchParams(window.location.search);
         var imageId = params.get('imageId');
