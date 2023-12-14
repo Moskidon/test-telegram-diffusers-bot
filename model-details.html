@@ -75,7 +75,6 @@
     </style>
 </head>
 <body>
-<div id="#init-data-container">aaa</div>
 <div id="image-container">
     <div class="inputs-group">
         <div class="input-container">
@@ -97,8 +96,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Telegram.WebApp.ready();
-        var initData = Telegram.WebApp.initData;
-        document.getElementById('init-data-container').innerText = JSON.stringify(initData, null, 2);
         var params = new URLSearchParams(window.location.search);
         var imageId = params.get('imageId');
         Telegram.WebApp.BackButton.show();
@@ -107,10 +104,29 @@
             Telegram.WebApp.BackButton.hide();
         })
 
+        function loadSettings() {
+            var savedSettings = localStorage.getItem('settings');
+            if (savedSettings) {
+                savedSettings = JSON.parse(savedSettings);
+                document.getElementById('guidance-scale').value = savedSettings.guidanceScale || 7.5;
+                document.getElementById('images-count').value = savedSettings.imagesCount || 4;
+                document.getElementById('steps').value = savedSettings.steps || 25;
+            }
+        }
+
+        loadSettings();
+
         document.getElementById('use-settings-button').addEventListener('click', function () {
             var guidanceScale = document.getElementById('guidance-scale').value;
             var imagesCount = document.getElementById('images-count').value;
             var steps = document.getElementById('steps').value;
+
+            localStorage.setItem('settings', JSON.stringify({
+                guidanceScale: guidanceScale,
+                imagesCount: imagesCount,
+                steps: steps
+            }));
+
             Telegram.WebApp.sendData(JSON.stringify({
                 guidanceScale: guidanceScale,
                 imagesCount: imagesCount,
