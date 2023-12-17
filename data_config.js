@@ -5,8 +5,8 @@ const images = [
         title: 'SD XL TURBO',
         description: "SDXL Turbo is an adversarial time-distilled Stable Diffusion XL (SDXL) model capable of running inference in as little as 1 step",
         configurableParams: {
-            images_count: {value: 4, step: 4, min: 4, max: 16},
-            steps: {value: 1, step: 1, min: 1, max: 50},
+            images_count: {value: 4, step: 4, min: 4, max: 32},
+            steps: {value: 1, step: 1, min: 1, max: 5},
         },
         samples: ["https://image.civitai.tech/xG1nkqKTMzGDvpLrqFT7WA/d3f4288b-9442-42a6-abf6-d97f8ebe013e/width=450/00588-2023-11-28-2676931633.jpeg",
             "https://image.civitai.tech/xG1nkqKTMzGDvpLrqFT7WA/ee8a2876-3be4-4571-8af8-1464869d43bb/width=450/00931-2023-11-28-4073367246.jpeg",
