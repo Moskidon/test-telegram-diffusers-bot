@@ -158,6 +158,36 @@
             display: none;
         }
 
+
+        .slider-button {
+            position: absolute;
+            /*top: 50%;*/
+            /*transform: translateY(-50%);*/
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--tg-theme-text-color, #cccccc);
+            text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.8);
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            height: 160px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .slider-button:active {
+            text-shadow: 14px 14px 14px rgba(0, 0, 0, 0.8);
+        }
+
+
+        .slider-button.left {
+            left: 10px;
+        }
+
+        .slider-button.right {
+            right: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -223,6 +253,25 @@
                     slider.scrollLeft = slider.firstChild.clientWidth / 2 - slider.clientWidth / 2;
                 }, 0);
             }
+
+            const leftButton = document.createElement('button');
+            leftButton.className = 'slider-button left';
+            leftButton.textContent = '<';
+            slider.appendChild(leftButton);
+
+            const rightButton = document.createElement('button');
+            rightButton.className = 'slider-button right';
+            rightButton.textContent = '>';
+            slider.appendChild(rightButton);
+
+            leftButton.addEventListener('click', () => {
+                slider.scrollLeft -= slider.childNodes[1].clientWidth;
+            });
+
+            rightButton.addEventListener('click', () => {
+                slider.scrollLeft += slider.childNodes[1].clientWidth;
+            });
+
 
             return slider;
         }
