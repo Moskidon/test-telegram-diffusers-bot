@@ -111,6 +111,26 @@
             -moz-appearance: textfield;
         }
 
+        .image-title {
+            font-size: 26px;
+        }
+
+        .image-slider {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 0;
+            align-items: center; /* Centers images vertically if they have different heights */
+            /* Adjust the height based on your images' sizes */
+            min-height: 320px; /* This should be greater than the max-height of images */
+        }
+
+        .image-slider img {
+            max-height: 300px; /* Adjust this value based on your design */
+            width: auto; /* This ensures the aspect ratio is maintained */
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -132,6 +152,40 @@
             window.location.href = 'index.html';
             Telegram.WebApp.BackButton.hide();
         });
+
+        function addTitleAndDescription() {
+            const imageData = images[parseInt(imageId)];
+            const title = imageData.title;
+            const description = imageData.description;
+
+            const titleElement = document.createElement('h1');
+            titleElement.textContent = title;
+            titleElement.className = 'image-title';
+            const descriptionElement = document.createElement('p');
+            descriptionElement.textContent = description;
+
+            const imageContainer = document.getElementById('image-container');
+            // imageContainer.insertBefore(descriptionElement, imageContainer.firstChild);
+            imageContainer.insertBefore(titleElement, imageContainer.firstChild);
+
+            const sliderElement = createImageSlider(imageData.samples);
+            imageContainer.insertBefore(sliderElement, titleElement.nextSibling);
+        }
+
+        function createImageSlider(samples) {
+            const slider = document.createElement('div');
+            slider.className = 'image-slider';
+
+            samples.forEach(sample => {
+                const img = document.createElement('img');
+                img.src = sample;
+                slider.appendChild(img);
+            });
+
+            return slider;
+        }
+
+        addTitleAndDescription();
 
         function createInputWithSlider(label, id, defaultValue, step, min, max) {
             const container = document.createElement('div');
