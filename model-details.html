@@ -115,6 +115,12 @@
         .image-title {
             font-size: 26px;
             color: var(--tg-theme-text-color, #ffffff);
+            margin: 0px;
+        }
+
+        .image-description, .toggle-button {
+            font-size: 15px;
+            color: var(--tg-theme-text-color, #ffffff);
         }
 
         .image-slider {
@@ -188,12 +194,24 @@
             right: 10px;
         }
 
+        .title-container {
+            background-color: rgba(240, 240, 240, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .title-container:hover {
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 <div id="image-container">
     <div class="inputs-group" id="configurable-inputs">
     </div>
+    <div style="flex-grow: 1"></div>
     <button class="telegram-button" id="use-settings-button">Use these settings</button>
 </div>
 <script src="data_config.js"></script>
@@ -214,19 +232,39 @@
             const title = imageData.title;
             const description = imageData.description;
 
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'title-container';
+
             const titleElement = document.createElement('h1');
             titleElement.textContent = title;
             titleElement.className = 'image-title';
-            const descriptionElement = document.createElement('p');
-            descriptionElement.textContent = description;
+            titleContainer.appendChild(titleElement);
 
-            const imageContainer = document.getElementById('image-container');
-            // imageContainer.insertBefore(descriptionElement, imageContainer.firstChild);
-            imageContainer.insertBefore(titleElement, imageContainer.firstChild);
+            const descriptionElement = document.createElement('p');
+            descriptionElement.className = 'image-description';
+            descriptionElement.textContent = description;
+            descriptionElement.style.display = 'none';
+            titleContainer.appendChild(descriptionElement);
+
+            const toggleButton = document.createElement('span');
+            toggleButton.textContent = 'Expand...';
+            toggleButton.className = 'toggle-button';
+            titleContainer.appendChild(toggleButton);
 
             const sliderElement = createImageSlider(imageData.samples);
-            imageContainer.insertBefore(sliderElement, titleElement.nextSibling);
+
+            const imageContainer = document.getElementById('image-container');
+
+            imageContainer.insertBefore(sliderElement, imageContainer.firstChild);
+            imageContainer.insertBefore(titleContainer, sliderElement.nextSibling);
+
+            titleContainer.addEventListener('click', function () {
+                const isExpanded = descriptionElement.style.display === 'block';
+                descriptionElement.style.display = isExpanded ? 'none' : 'block';
+                toggleButton.textContent = isExpanded ? 'Expand' : 'Collapse';
+            });
         }
+
 
         function createImageSlider(samples) {
             const slider = document.createElement('div');
