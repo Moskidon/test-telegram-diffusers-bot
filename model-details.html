@@ -113,6 +113,7 @@
 
         .image-title {
             font-size: 26px;
+            color: var(--tg-theme-text-color, #333);
         }
 
         .image-slider {
@@ -120,15 +121,37 @@
             overflow-x: auto;
             white-space: nowrap;
             padding: 10px 0;
-            align-items: center; /* Centers images vertically if they have different heights */
-            /* Adjust the height based on your images' sizes */
-            min-height: 320px; /* This should be greater than the max-height of images */
+            align-items: center;
+            min-height: 320px;
         }
 
         .image-slider img {
-            max-height: 300px; /* Adjust this value based on your design */
-            width: auto; /* This ensures the aspect ratio is maintained */
+            max-height: 300px;
+            width: auto;
             margin-right: 10px;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .image-slider .loader {
+            display: none;
         }
 
     </style>
@@ -136,7 +159,6 @@
 <body>
 <div id="image-container">
     <div class="inputs-group" id="configurable-inputs">
-        <!-- Inputs will be dynamically added here -->
     </div>
     <button class="telegram-button" id="use-settings-button">Use these settings</button>
 </div>
@@ -176,14 +198,25 @@
             const slider = document.createElement('div');
             slider.className = 'image-slider';
 
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            slider.appendChild(loader);
+            loader.style.display = 'block';
+
             samples.forEach(sample => {
                 const img = document.createElement('img');
                 img.src = sample;
+
+                img.onload = () => {
+                    loader.style.display = 'none';
+                };
+
                 slider.appendChild(img);
             });
 
             return slider;
         }
+
 
         addTitleAndDescription();
 
