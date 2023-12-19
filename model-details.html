@@ -23,23 +23,60 @@
             height: 100%;
         }
 
-        .input-container select {
-            font-size: 16px;
+        .dropdown {
             width: 100%;
-            padding: 10px;
+            position: relative;
+            background-color: var(--tg-theme-bg-color, #ffffff);
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
-            color: var(--tg-theme-text-color, #333);
-            background-color: var(--tg-theme-bg-color, #ffffff);
             cursor: pointer;
         }
 
-        .input-container select:focus {
-            outline: none;
-            border-color: var(--tg-theme-button-bg-color, #0088cc);
-            box-shadow: 0 0 8px 0 rgba(102, 175, 233, .6);
+        .dropdown-header {
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .dropdown-header .arrow {
+            border: solid var(--tg-theme-text-color, #333);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 3px;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
+
+        .dropdown-header .arrow.down {
+            transform: rotate(-135deg);
+            -webkit-transform: rotate(-135deg);
+        }
+
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-sizing: border-box;
+        }
+
+        .dropdown-options div {
+            padding: 10px;
+            color: var(--tg-theme-text-color, #333);
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dropdown-options div:hover {
+            background-color: var(--tg-theme-button-bg-color, #0088cc);
+            color: var(--tg-theme-button-text-color, white);
+        }
+
 
         .input-container {
             margin-top: 20px;
@@ -245,11 +282,14 @@
         <!-- Inputs will be added dynamically here -->
     </div>
 
-    <div class="input-container">
-        <label for="samplerSelect">Choose a Sampler:</label>
-        <select id="samplerSelect" name="sampler">
+    <div class="dropdown">
+        <div class="dropdown-header">
+            <span id="dropdown-label">Choose a Sampler:</span>
+            <i class="arrow down"></i>
+        </div>
+        <div class="dropdown-options">
             <!-- Options will be added dynamically here -->
-        </select>
+        </div>
     </div>
 
     <div style="flex-grow: 1"></div>
@@ -427,13 +467,23 @@
         loadConfigurableInputs();
         loadSettings();
 
-        var selectBox = document.getElementById('samplerSelect');
+        var dropdownLabel = document.getElementById('dropdown-label');
+        var dropdownOptions = document.querySelector('.dropdown-options');
+
+        dropdownLabel.textContent = samplers[0];
 
         samplers.forEach(function (sampler) {
-            var option = document.createElement('option');
-            option.value = sampler;
-            option.text = sampler;
-            selectBox.appendChild(option);
+            var option = document.createElement('div');
+            option.textContent = sampler;
+            option.onclick = function () {
+                dropdownLabel.textContent = sampler;
+                dropdownOptions.style.display = 'none';
+            };
+            dropdownOptions.appendChild(option);
+        });
+
+        document.querySelector('.dropdown-header').addEventListener('click', function () {
+            dropdownOptions.style.display = dropdownOptions.style.display === 'none' ? 'block' : 'none';
         });
 
         document.getElementById('use-settings-button').addEventListener('click', function () {
