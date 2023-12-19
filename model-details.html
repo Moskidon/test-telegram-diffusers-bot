@@ -23,6 +23,24 @@
             height: 100%;
         }
 
+        .input-container select {
+            font-size: 16px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            color: var(--tg-theme-text-color, #333);
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            cursor: pointer;
+        }
+
+        .input-container select:focus {
+            outline: none;
+            border-color: var(--tg-theme-button-bg-color, #0088cc);
+            box-shadow: 0 0 8px 0 rgba(102, 175, 233, .6);
+        }
+
         .input-container {
             margin-top: 20px;
         }
@@ -52,7 +70,7 @@
         }
 
 
-        .input-container label {
+        label {
             display: block;
             margin-bottom: 5px;
             color: var(--tg-theme-text-color, #ffffff);
@@ -224,7 +242,16 @@
 </div>
 <div id="image-container">
     <div class="inputs-group" id="configurable-inputs">
+        <!-- Inputs will be added dynamically here -->
     </div>
+
+    <div class="input-container">
+        <label for="samplerSelect">Choose a Sampler:</label>
+        <select id="samplerSelect" name="sampler">
+            <!-- Options will be added dynamically here -->
+        </select>
+    </div>
+
     <div style="flex-grow: 1"></div>
     <button class="telegram-button" id="use-settings-button">Use settings</button>
 </div>
@@ -399,6 +426,15 @@
 
         loadConfigurableInputs();
         loadSettings();
+
+        var selectBox = document.getElementById('samplerSelect');
+
+        samplers.forEach(function (sampler) {
+            var option = document.createElement('option');
+            option.value = sampler;
+            option.text = sampler;
+            selectBox.appendChild(option);
+        });
 
         document.getElementById('use-settings-button').addEventListener('click', function () {
             var allSettings = JSON.parse(localStorage.getItem('settings')) || {};
