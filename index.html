@@ -118,7 +118,7 @@
                 div.className = 'gallery-item';
                 div.innerHTML = `
                 <a href="model-details.html?imageId=${index}" id="link-${index}">
-                    <img src="${image.src}" alt="${image.title}">
+                    <img src="${image.samples[0]}" alt="${image.title}">
                     <div class="gallery-item-text">${image.title}</div>
                 </a>
             `;
