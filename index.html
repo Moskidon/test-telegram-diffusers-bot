@@ -120,19 +120,24 @@
             });
         }
 
-         function distributeImages() {
+        async function distributeImages() {
             const columns = document.querySelectorAll('.gallery-column');
-            images.forEach((image, index) => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                div.innerHTML = `
+            for (let index = 0; index < images.length; index++) {
+                try {
+                    const img = await loadImageAsync(images[index]);
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `
                 <a href="model-details.html?imageId=${index}" id="link-${index}">
-                    <img src="${image.samples[0]}" alt="${image.title}">
-                    <div class="gallery-item-text">${image.title}</div>
+                    ${img.outerHTML}
+                    <div class="gallery-item-text">${images[index].title}</div>
                 </a>
             `;
-                columns[index % columns.length].appendChild(div);
-            });
+                    columns[index % columns.length].appendChild(div);
+                } catch (error) {
+                    console.error('Error loading image:', images[index], error);
+                }
+            }
         }
 
 
