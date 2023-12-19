@@ -84,6 +84,33 @@
             gap: 10px;
         }
 
+        .image-slider::before,
+        .image-slider::after {
+            content: '';
+            flex: 0 0 50%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 8px;
+        }
+
+        /* Стилизация фона ползунка */
+        ::-webkit-scrollbar-track {
+            background: var(--tg-theme-bg-color, #ffffff); /* цвет фона */
+        }
+
+        /* Стилизация самого ползунка (ручки) */
+        ::-webkit-scrollbar-thumb {
+            background: #888; /* цвет ползунка */
+        }
+
+        /*!* Изменение цвета ползунка при наведении *!*/
+        /*::-webkit-scrollbar-thumb:hover {*/
+        /*    background: #555; !* цвет ползунка при наведении *!*/
+        /*}*/
+
+
         .telegram-button {
             width: 100%;
             padding: 10px;
