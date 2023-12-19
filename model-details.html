@@ -111,13 +111,16 @@
 
         .input-container input[type="number"] {
             font-size: 22px;
-            width: 100%;
+            width: auto;
+            max-width: 30%;
             padding: 10px;
+            margin-right: 10px;
             border: 1px solid rgba(221, 221, 221, 0.19);
             border-radius: 4px;
             box-sizing: border-box;
             color: var(--tg-theme-text-color, #333);
             background-color: var(--tg-theme-bg-color, #ffffff);
+            text-align: center;
         }
 
         .input-container input[type="number"]:focus {
@@ -221,7 +224,7 @@
             position: absolute;
             font-size: 40px;
             font-weight: bold;
-            color: var(--tg-theme-text-color, #cccccc);
+            color: var(--tg-theme-text-color, rgba(204, 204, 204, 0.7));
             text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.8);
             background-color: transparent;
             border: none;
@@ -423,6 +426,10 @@
             sliderElement.min = min;
             sliderElement.max = max;
 
+            // Flex container for input and slider
+            const flexContainer = document.createElement('div');
+            flexContainer.style.display = 'flex';
+
             inputElement.addEventListener('input', function () {
                 sliderElement.value = this.value;
             });
@@ -431,9 +438,13 @@
                 inputElement.value = this.value;
             });
 
+            // Append input and slider to the flex container
+            flexContainer.appendChild(inputElement);
+            flexContainer.appendChild(sliderElement);
+
+            // Append label and flex container to the main container
             container.appendChild(labelElement);
-            container.appendChild(inputElement);
-            container.appendChild(sliderElement);
+            container.appendChild(flexContainer);
 
             return container;
         }
