@@ -334,7 +334,7 @@
             Telegram.WebApp.BackButton.hide();
         });
 
-        function addTitleAndDescription() {
+        async function addTitleAndDescription() {
             const imageData = images[parseInt(imageId)];
             const title = imageData.title;
             const description = imageData.description;
@@ -358,11 +358,14 @@
             toggleButton.className = 'toggle-button';
             titleContainer.appendChild(toggleButton);
 
-            const sliderElement = createImageSlider(imageData.samples);
+            const sliderElement = createImageSlider();
 
             const imageContainer = document.getElementById('image-container');
 
             imageContainer.insertBefore(sliderElement, imageContainer.firstChild);
+
+            await populateImageSlider(sliderElement, imageData.samples);
+
             imageContainer.insertBefore(titleContainer, sliderElement.nextSibling);
 
             titleContainer.addEventListener('click', function () {
@@ -372,31 +375,39 @@
             });
         }
 
+        function loadImageAsync(image) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = reject;
+                img.src = image;
+            });
+        }
 
-        function createImageSlider(samples) {
+        function createImageSlider() {
             const slider = document.createElement('div');
             slider.className = 'image-slider';
 
             const loader = document.createElement('div');
             loader.className = 'loader';
             slider.appendChild(loader);
+
+
+            return slider;
+        }
+
+        async function populateImageSlider(slider, samples) {
+            const loader = slider.querySelector('.loader');
             loader.style.display = 'block';
 
-            samples.forEach(sample => {
-                const img = document.createElement('img');
-                img.src = sample;
-
-                img.onload = () => {
+            for (const sample of samples) {
+                try {
+                    const img = await loadImageAsync(sample);
                     loader.style.display = 'none';
-                };
-
-                slider.appendChild(img);
-            });
-
-            if (samples.length > 0) {
-                setTimeout(() => {
-                    slider.scrollLeft = slider.firstChild.clientWidth / 2 - slider.clientWidth / 2;
-                }, 0);
+                    slider.appendChild(img);
+                } catch (error) {
+                    console.error('Error loading image:', sample, error);
+                }
             }
 
             const leftButton = document.createElement('button');
@@ -416,9 +427,6 @@
             rightButton.addEventListener('click', () => {
                 slider.scrollLeft += slider.childNodes[1].clientWidth;
             });
-
-
-            return slider;
         }
 
 
