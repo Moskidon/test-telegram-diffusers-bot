@@ -26,6 +26,7 @@
         .dropdown {
             width: 100%;
             position: relative;
+            color: var(--tg-theme-text-color, #333);
             background-color: var(--tg-theme-bg-color, #ffffff);
             border: 1px solid #ddd;
             border-radius: 4px;
@@ -68,7 +69,6 @@
 
         .dropdown-options div {
             padding: 10px;
-            color: var(--tg-theme-text-color, #333);
             border-bottom: 1px solid #ddd;
         }
 
@@ -282,13 +282,16 @@
         <!-- Inputs will be added dynamically here -->
     </div>
 
-    <div class="dropdown">
-        <div class="dropdown-header">
-            <span id="dropdown-label">Choose a Sampler:</span>
-            <i class="arrow down"></i>
-        </div>
-        <div class="dropdown-options">
-            <!-- Options will be added dynamically here -->
+
+    <div class="input-container">
+        <div class="dropdown">
+            <div class="dropdown-header">
+                <span id="dropdown-label">Choose a Sampler:</span>
+                <i class="arrow down"></i>
+            </div>
+            <div class="dropdown-options">
+                <!-- Options will be added dynamically here -->
+            </div>
         </div>
     </div>
 
