@@ -508,7 +508,7 @@
         document.getElementById('use-settings-button').addEventListener('click', function () {
             var allSettings = JSON.parse(localStorage.getItem('settings')) || {};
             allSettings[imageId] = {};
-            document.querySelectorAll('.inputs-group .input-container input').forEach(input => {
+            document.querySelectorAll('.inputs-group .input-container input[type=number]').forEach(input => {
                 allSettings[imageId][input.id] = input.value;
             });
 
