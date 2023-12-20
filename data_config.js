@@ -3,8 +3,8 @@ const images = [
         title: 'SD XL TURBO',
         description: "SDXL Turbo is an adversarial time-distilled Stable Diffusion XL (SDXL) model capable of running inference in as little as 1 step",
         configurableParams: {
-            "Images Count": {value: 8, step: 4, min: 4, max: 32},
-            "Inference Steps": {value: 1, step: 1, min: 1, max: 8},
+            "images_count": {value: 8, step: 4, min: 4, max: 32, name: "Images Count"},
+            "steps": {value: 1, step: 1, min: 1, max: 8, name: "Steps"},
         },
         samples: ["https://image.civitai.tech/xG1nkqKTMzGDvpLrqFT7WA/d3f4288b-9442-42a6-abf6-d97f8ebe013e/width=450/00588-2023-11-28-2676931633.jpeg",
             "https://image.civitai.tech/xG1nkqKTMzGDvpLrqFT7WA/ee8a2876-3be4-4571-8af8-1464869d43bb/width=450/00931-2023-11-28-4073367246.jpeg",
@@ -17,9 +17,9 @@ const images = [
         title: 'SD 1.5',
         description: "The Stable-Diffusion-v1-5 checkpoint was initialized with the weights of the Stable-Diffusion-v1-2 checkpoint and subsequently fine-tuned on 595k steps at resolution 512x512 on \"laion-aesthetics v2 5+\" and 10% dropping of the text-conditioning to improve classifier-free guidance sampling",
         configurableParams: {
-            "Images Count": {value: 4, step: 4, min: 4, max: 16},
-            "Inference Steps": {value: 25, step: 1, min: 1, max: 50},
-            "Guidance Scale": {value: 7.5, step: 0.5, min: 0, max: 20}
+            "images_count": {value: 4, step: 4, min: 4, max: 16, name: "Images Count"},
+            "steps": {value: 25, step: 1, min: 1, max: 50, name: "Steps"},
+            "guidance": {value: 7.5, step: 0.5, min: 0, max: 20, name: "Guidance Scale"}
         },
         samples: [
             "https://image.stablediffusionapi.com/?quality=45&Image=https://cdn2.stablediffusionapi.com/generations/bf32734b-d693-489d-a426-9414606c14e5-0.png",
@@ -31,9 +31,9 @@ const images = [
         title: 'Juggernaut XL',
         description: "",
         configurableParams: {
-            "Images Count": {value: 4, step: 4, min: 4, max: 16},
-            "Inference Steps": {value: 25, step: 1, min: 1, max: 50},
-            "Guidance Scale": {value: 7.5, step: 0.5, min: 0, max: 20}
+            "images_count": {value: 4, step: 4, min: 4, max: 16, name: "Images Count"},
+            "steps": {value: 25, step: 1, min: 1, max: 50, name: "Steps"},
+            "guidance": {value: 7.5, step: 0.5, min: 0, max: 20, name: "Guidance Scale"}
         },
         samples: ["https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/6235f47d-e3f2-4c55-9448-1fee162894fe/width=450/00131-cinematic%20photo%20photograph,%20Kodak%20portra%20800,%2025%20y.o%20afro%20american%20man,%20.%2035mm%20photograph,%20film,%20bokeh,%20professional,%204k,%20highly.jpeg",
             "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/8db1507b-1bc4-4bd1-83a8-7d00b6ee931d/width=450/00182-abstract%20beauty,%20centered,%20looking%20at%20the%20camera,%20approaching%20perfection,%20dynamic,%20moonlight,%20highly%20detailed,%20digital%20painting,.jpeg",
@@ -46,9 +46,9 @@ const images = [
         title: 'RealCartoon3D',
         description: "",
         configurableParams: {
-            "Images Count": {value: 4, step: 4, min: 4, max: 16},
-            "Inference Steps": {value: 25, step: 1, min: 1, max: 50},
-            "Guidance Scale": {value: 7.5, step: 0.5, min: 0, max: 20}
+            "images_count": {value: 4, step: 4, min: 4, max: 16, name: "Images Count"},
+            "steps": {value: 25, step: 1, min: 1, max: 50, name: "Steps"},
+            "guidance": {value: 7.5, step: 0.5, min: 0, max: 20, name: "Guidance Scale"}
         },
         samples: ["https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/3f09d6c5-13a6-46fa-9e9f-93c89650ce76/width=450/00008-530175313.jpeg",
             "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/572e8627-92f6-49d8-848e-34f6d6eb585c/width=450/00009-2183776599.jpeg",
@@ -60,9 +60,9 @@ const images = [
         title: 'DreamShaper XL',
         description: "",
         configurableParams: {
-            "Images Count": {value: 4, step: 4, min: 4, max: 16},
-            "Inference Steps": {value: 25, step: 1, min: 1, max: 50},
-            "Guidance Scale": {value: 7.5, step: 0.5, min: 0, max: 20}
+            "images_count": {value: 4, step: 4, min: 4, max: 16, name: "Images Count"},
+            "steps": {value: 25, step: 1, min: 1, max: 50, name: "Steps"},
+            "guidance": {value: 7.5, step: 0.5, min: 0, max: 20, name: "Guidance Scale"}
         },
         samples: ["https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c4dbf85a-c96a-47f3-b98f-9bae25f750d9/width=450/31073260-554464390-In%20Casey%20Baugh's%20evocative%20style,%20art%20of%20a%20beautiful%20young%20girl%20cyborg%20with%20long%20brown%20hair,%20futuristic,%20scifi,%20intricate,%20elega.jpeg",
             "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/51968cbc-6c36-44d9-ac6d-6300521d19f7/width=450/31073278-2039823409429-photo%20of%20the%20warrior%20Aragorn%20from%20Lord%20of%20the%20Rings,%20film%20grain,%208k%20hd.jpeg",
@@ -75,9 +75,9 @@ const images = [
         title: 'ZavyChromaXL',
         description: "",
         configurableParams: {
-            "Images Count": {value: 4, step: 4, min: 4, max: 16},
-            "Inference Steps": {value: 25, step: 1, min: 1, max: 50},
-            "Guidance Scale": {value: 7.5, step: 0.5, min: 0, max: 20}
+            "images_count": {value: 4, step: 4, min: 4, max: 16, name: "Images Count"},
+            "steps": {value: 25, step: 1, min: 1, max: 50, name: "Steps"},
+            "guidance": {value: 7.5, step: 0.5, min: 0, max: 20, name: "Guidance Scale"}
         },
         samples: ["https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/c4c30afb-8d9d-4aa5-a8ba-7f7670e059b2/width=450/ChromaXL_00037.jpeg",
             "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/9dd1ece0-3325-470f-b004-5f611b2b3d3c/width=450/ChromaXL_00076.jpeg",
@@ -90,8 +90,8 @@ const images = [
         title: 'TurboVisionXL',
         description: "Super Fast XL based on new SDXL Turbo - 3 - 5 step quality output at high resolutions!",
         configurableParams: {
-            "Images Count": {value: 8, step: 4, min: 4, max: 32},
-            "Inference Steps": {value: 1, step: 1, min: 1, max: 8},
+            "images_count": {value: 8, step: 4, min: 4, max: 32, name: "Images Count"},
+            "steps": {value: 1, step: 1, min: 1, max: 8, name: "Steps"},
         },
         samples: ["https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/98c47ca0-b2fc-4861-ae82-b8c63e777b29/width=450/01404-2023-12-08-1291191819.jpeg",
             "https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/67f61de0-ac22-4285-8486-3940848b8645/width=450/00463-2023-12-08-182778452.jpeg",

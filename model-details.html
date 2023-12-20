@@ -461,7 +461,7 @@
             const configurableParams = images[parseInt(imageId)].configurableParams;
             const inputsGroup = document.getElementById('configurable-inputs');
             Object.keys(configurableParams).forEach(key => {
-                const input = createInputWithSlider(key, key, configurableParams[key].value, configurableParams[key].step, configurableParams[key].min, configurableParams[key].max);
+                const input = createInputWithSlider(configurableParams[key].name, key, configurableParams[key].value, configurableParams[key].step, configurableParams[key].min, configurableParams[key].max);
                 inputsGroup.appendChild(input);
             });
         }
