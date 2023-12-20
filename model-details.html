@@ -284,7 +284,7 @@
 </head>
 <body>
 <div class="header">
-<!--    <img src="nuzhnologo.svg" alt="" class="logo">-->
+    <!--    <img src="nuzhnologo.svg" alt="" class="logo">-->
 </div>
 <div id="image-container">
     <div class="inputs-group" id="configurable-inputs">
@@ -511,6 +511,8 @@
             document.querySelectorAll('.inputs-group .input-container input[type=number]').forEach(input => {
                 allSettings[imageId][input.id] = input.value;
             });
+
+            allSettings[imageId]['sampler'] = dropdownLabel.textContent;
 
             localStorage.setItem('settings', JSON.stringify(allSettings));
 
