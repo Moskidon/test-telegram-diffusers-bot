@@ -101,7 +101,6 @@
         const gallery = document.getElementById('gallery');
         let columnCount;
 
-
         function createColumns(count) {
             gallery.innerHTML = '';
             for (let i = 0; i < count; i++) {
@@ -111,44 +110,55 @@
             }
         }
 
-        function loadImageAsync(image) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = reject;
-                img.src = image.samples[0];
+        function createPlaceholders() {
+            const columns = document.querySelectorAll('.gallery-column');
+            images.forEach((image, index) => {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'gallery-item';
+                placeholder.id = `placeholder-${index}`;
+                placeholder.style.height = '400px';
+                placeholder.style.backgroundColor = '#525252';
+                columns[index % columns.length].appendChild(placeholder);
             });
         }
 
-        async function distributeImages() {
-            const columns = document.querySelectorAll('.gallery-column');
-            for (let index = 0; index < images.length; index++) {
-                try {
-                    const img = await loadImageAsync(images[index]);
-                    const div = document.createElement('div');
-                    div.className = 'gallery-item';
-                    div.innerHTML = `
-                <a href="model-details.html?imageId=${index}" id="link-${index}">
-                    ${img.outerHTML}
-                    <div class="gallery-item-text">${images[index].title}</div>
-                </a>
-            `;
-                    columns[index % columns.length].appendChild(div);
-                } catch (error) {
-                    console.error('Error loading image:', images[index], error);
-                }
-            }
+        function loadImageAsync(image, index) {
+            const img = new Image();
+            img.onload = () => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <a href="model-details.html?imageId=${index}" id="link-${index}">
+                        ${img.outerHTML}
+                        <div class="gallery-item-text">${image.title}</div>
+                    </a>
+                `;
+                const placeholder = document.getElementById(`placeholder-${index}`);
+                placeholder.replaceWith(div);
+            };
+            img.onerror = (error) => {
+                console.error('Error loading image:', image, error);
+            };
+            img.src = image.samples[0];
         }
 
+        function distributeImages() {
+            images.forEach((image, index) => {
+                loadImageAsync(image, index);
+            });
+        }
 
         function adjustGallery() {
             columnCount = 2;
             createColumns(columnCount);
+            createPlaceholders();
             distributeImages();
         }
 
         adjustGallery();
     });
 </script>
+
+
 </body>
 </html>

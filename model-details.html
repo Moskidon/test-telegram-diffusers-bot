@@ -334,7 +334,7 @@
             Telegram.WebApp.BackButton.hide();
         });
 
-        async function addTitleAndDescription() {
+        function addTitleAndDescription() {
             const imageData = images[parseInt(imageId)];
             const title = imageData.title;
             const description = imageData.description;
@@ -358,14 +358,11 @@
             toggleButton.className = 'toggle-button';
             titleContainer.appendChild(toggleButton);
 
-            const sliderElement = createImageSlider();
+            const sliderElement = createImageSlider(imageData.samples);
 
             const imageContainer = document.getElementById('image-container');
 
             imageContainer.insertBefore(sliderElement, imageContainer.firstChild);
-
-            await populateImageSlider(sliderElement, imageData.samples);
-
             imageContainer.insertBefore(titleContainer, sliderElement.nextSibling);
 
             titleContainer.addEventListener('click', function () {
@@ -375,39 +372,31 @@
             });
         }
 
-        function loadImageAsync(image) {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.onload = () => resolve(img);
-                img.onerror = reject;
-                img.src = image;
-            });
-        }
 
-        function createImageSlider() {
+        function createImageSlider(samples) {
             const slider = document.createElement('div');
             slider.className = 'image-slider';
 
             const loader = document.createElement('div');
             loader.className = 'loader';
             slider.appendChild(loader);
-
-
-            return slider;
-        }
-
-        async function populateImageSlider(slider, samples) {
-            const loader = slider.querySelector('.loader');
             loader.style.display = 'block';
 
-            for (const sample of samples) {
-                try {
-                    const img = await loadImageAsync(sample);
+            samples.forEach(sample => {
+                const img = document.createElement('img');
+                img.src = sample;
+
+                img.onload = () => {
                     loader.style.display = 'none';
-                    slider.appendChild(img);
-                } catch (error) {
-                    console.error('Error loading image:', sample, error);
-                }
+                };
+
+                slider.appendChild(img);
+            });
+
+            if (samples.length > 0) {
+                setTimeout(() => {
+                    slider.scrollLeft = slider.firstChild.clientWidth / 2 - slider.clientWidth / 2;
+                }, 0);
             }
 
             const leftButton = document.createElement('button');
@@ -427,6 +416,9 @@
             rightButton.addEventListener('click', () => {
                 slider.scrollLeft += slider.childNodes[1].clientWidth;
             });
+
+
+            return slider;
         }
 
 
@@ -458,7 +450,6 @@
             sliderElement.min = min;
             sliderElement.max = max;
 
-            // Flex container for input and slider
             const flexContainer = document.createElement('div');
             flexContainer.style.display = 'flex';
 
@@ -470,11 +461,9 @@
                 inputElement.value = this.value;
             });
 
-            // Append input and slider to the flex container
             flexContainer.appendChild(inputElement);
             flexContainer.appendChild(sliderElement);
 
-            // Append label and flex container to the main container
             container.appendChild(labelElement);
             container.appendChild(flexContainer);
 
@@ -525,8 +514,10 @@
         });
 
         document.querySelector('.dropdown-header').addEventListener('click', function () {
-            dropdownOptions.style.display = dropdownOptions.style.display === 'none' ? 'block' : 'none';
+            var style = window.getComputedStyle(dropdownOptions);
+            dropdownOptions.style.display = style.display === 'none' ? 'block' : 'none';
         });
+
 
         document.getElementById('use-settings-button').addEventListener('click', function () {
             var allSettings = JSON.parse(localStorage.getItem('settings')) || {};
