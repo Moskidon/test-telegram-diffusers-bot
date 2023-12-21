@@ -206,7 +206,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function loadConfigurableInputs() {
     const configurableParams = image.configurableParams;
     const inputsGroup = document.getElementById('configurable-inputs');
-    console.log(inputsGroup);
     Object.keys(configurableParams).forEach((key) => {
       const params = configurableParams[key];
       const type = params.type;
