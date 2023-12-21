@@ -323,6 +323,7 @@ label {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
     gap: 16px;
 }
 
