@@ -3,7 +3,7 @@ html {
     --theme-bg-color: var(--tg-theme-bg-color, #000000);
     --theme-text-color: var(--tg-theme-text-color, #ffff);
     --theme-hint-color: var(--tg-theme-hint-color, #858585);
-    --theme-button-bg-color: var(--tg-theme-button-bg-color, #0088cc);
+    --theme-button-bg-color: var(--tg-theme-button-color, #0088cc);
     --theme-button-text-color: var(--tg-theme-button-text-color, #d6d6d6);
     --theme-secondary-bg-color: var(--tg-theme-secondary-bg-color, #3d3d3d);
     background-color: var(--theme-bg-color, #000);
