@@ -52,9 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const slider = document.createElement('div');
     slider.className = 'image-slider';
 
+    const loaderWrapper = document.createElement('div');
+    loaderWrapper.className = 'loaderWrapper';
     const loader = document.createElement('div');
     loader.className = 'loader';
-    slider.appendChild(loader);
+    loaderWrapper.appendChild(loader);
+    slider.appendChild(loaderWrapper);
     loader.style.display = 'block';
 
     samples.forEach((sample) => {
@@ -155,8 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
     selectedDimensionIndex = dimensionIndex;
     const selectedDimensionItem = dimensionItems[selectedDimensionIndex];
     selectedDimensionItem.className = 'dimensions-picker-item active';
-
-    renderDimensions();
   }
 
   function addDimensions() {
@@ -175,6 +176,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   addDimensions();
+  selectDimension(0);
 
   var isRandomSeed = true;
   var seedRandomNode = document.getElementById('seed-option-random');
@@ -183,10 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   seedRandomNode.addEventListener('click', () => {
     setRandomSeed(true);
+    seedValueNode.className = 'seed-value disabled';
   });
 
   seedCustomNode.addEventListener('click', () => {
     setRandomSeed(false);
+    seedValueNode.className = 'seed-value';
   });
 
   function setRandomSeed(isRandom) {
