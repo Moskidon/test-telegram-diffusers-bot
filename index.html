@@ -1,185 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Browse Models</title>
     <style>
-        body {
-            --bg-color: var(--tg-theme-bg-color, #000);
-            font-family: sans-serif;
-            background-color: var(--bg-color);
-            color: var(--tg-theme-text-color, #fff);
-            font-size: 18px;
-            margin: 0;
-            padding: 0;
-            color-scheme: var(--tg-color-scheme);
-        }
+      body {
+        --bg-color: var(--tg-theme-bg-color, #000);
+        font-family: sans-serif;
+        background-color: var(--bg-color);
+        color: var(--tg-theme-text-color, #fff);
+        font-size: 18px;
+        margin: 0;
+        padding: 0;
+        color-scheme: var(--tg-color-scheme);
+      }
 
-        .container {
-            width: 90%;
-            margin: auto;
-            overflow: hidden;
-        }
+      .container {
+        width: 90%;
+        margin: auto;
+        overflow: hidden;
+      }
 
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            justify-content: center;
-        }
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        justify-content: center;
+      }
 
-        .gallery-column {
-            flex: 1;
-            margin-right: 25px;
-        }
+      .gallery-column {
+        flex: 1;
+        margin-right: 25px;
+      }
 
-        .gallery-column:last-child {
-            margin-right: 0;
-        }
+      .gallery-column:last-child {
+        margin-right: 0;
+      }
 
-        .gallery-item {
-            margin-bottom: 15px;
-            position: relative;
-            overflow: hidden;
-        }
+      .gallery-item {
+        margin-bottom: 15px;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .gallery-item img {
-            width: 100%;
-            height: auto;
-            transition: 0.3s ease;
-        }
+      .gallery-item img {
+        width: 100%;
+        height: auto;
+        transition: 0.3s ease;
+      }
 
-        .gallery-item a {
-            text-decoration: none;
-            color: var(--tg-theme-text-color, #fff);
-            text-align: center;
-            display: block;
-            margin-top: 5px;
-        }
+      .gallery-item a {
+        text-decoration: none;
+        color: var(--tg-theme-text-color, #fff);
+        text-align: center;
+        display: block;
+        margin-top: 5px;
+      }
 
-        .gallery-item-text {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            transition: 0.3s ease;
-        }
+      .gallery-item-text {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        transition: 0.3s ease;
+      }
+
+      .header {
+        padding: 10px;
+        text-align: left;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(204, 204, 204, 0.19);
+      }
+
+      /*.logo {*/
+      /*    padding-top: 10px;*/
+      /*    width: 30%;*/
+      /*}*/
     </style>
-</head>
-<body>
-<div class="container">
-    <h1>Browse Models</h1>
-    <div id="gallery" class="gallery">
+  </head>
+  <body>
+    <div class="header">
+      <!--    <img src="nuzhnologo.svg" alt="" class="logo">-->
     </div>
-</div>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <div class="container">
+      <h1>Browse Models</h1>
+      <div id="gallery" class="gallery"></div>
+    </div>
+    <script src="data_config.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
         Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
 
         const gallery = document.getElementById('gallery');
         let columnCount;
 
-        const images = [
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/dd4f0141-15d8-4a59-bcc5-69b3be74a769/width=450/00035-3141723614.jpeg',
-                url: 'https://civitai.com/images/4436602',
-                title: 'SD XL TURBO'
-            },
-            {
-                src: 'https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/873a6ebc-f780-459d-a8ab-179d3711d110/width=450/D19E95BF394FBD9D9461B14B5A98DF1CD8D1820044106C4E9FC34EBDDA11A74E.jpeg',
-                url: 'https://civitai.com/images/4439807',
-                title: 'SD 1.5'
-            },
-        ];
-
         function createColumns(count) {
-            gallery.innerHTML = '';
-            for (let i = 0; i < count; i++) {
-                const column = document.createElement('div');
-                column.className = 'gallery-column';
-                gallery.appendChild(column);
-            }
+          gallery.innerHTML = '';
+          for (let i = 0; i < count; i++) {
+            const column = document.createElement('div');
+            column.className = 'gallery-column';
+            gallery.appendChild(column);
+          }
+        }
+
+        function createPlaceholders() {
+          const columns = document.querySelectorAll('.gallery-column');
+          images.forEach((image, index) => {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'gallery-item';
+            placeholder.id = `placeholder-${index}`;
+            placeholder.style.paddingTop = '100%';
+            placeholder.style.backgroundColor = '#525252';
+            columns[index % columns.length].appendChild(placeholder);
+          });
+        }
+
+        function loadImageAsync(image, index) {
+          const img = new Image();
+          img.onload = () => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                    <a href="model-details/model-details.html?imageId=${index}" id="link-${index}">
+                        ${img.outerHTML}
+                        <div class="gallery-item-text">${image.title}</div>
+                    </a>
+                `;
+            const placeholder = document.getElementById(`placeholder-${index}`);
+            placeholder.replaceWith(div);
+          };
+          img.onerror = (error) => {
+            console.error('Error loading image:', image, error);
+          };
+          img.src = image.samples[0];
         }
 
         function distributeImages() {
-            const columns = document.querySelectorAll('.gallery-column');
-            images.forEach((image, index) => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                div.innerHTML = `
-                <a href="model-details.html?imageId=${index}" id="link-${index}">
-                    <img src="${image.src}" alt="${image.title}">
-                    <div class="gallery-item-text">${image.title}</div>
-                </a>
-            `;
-                columns[index % columns.length].appendChild(div);
-            });
+          images.forEach((image, index) => {
+            loadImageAsync(image, index);
+          });
         }
 
         function adjustGallery() {
-            columnCount = 2;
-            createColumns(columnCount);
-            distributeImages();
+          columnCount = 2;
+          createColumns(columnCount);
+          createPlaceholders();
+          distributeImages();
         }
 
         adjustGallery();
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

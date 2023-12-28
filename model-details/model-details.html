@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Details</title>
+    <link rel="stylesheet" href="model-details.css" />
+  </head>
+  <body>
+    <div class="header">
+      <!--    <img src="nuzhnologo.svg" alt="" class="logo">-->
+    </div>
+    <div id="image-container">
+      <div class="inputs-group" id="configurable-inputs">
+        <!-- Inputs will be added dynamically here -->
+      </div>
+
+      <div class="dimensions-picker-block">
+        <div class="dimensions-picker-label">Dimensions</div>
+        <div class="dimensions-picker-body" id="dimensions-picker">
+          <!-- Dimensions will be added dynamically here -->
+        </div>
+      </div>
+
+      <div class="seed-block">
+        <div class="seed-label">Seed</div>
+        <div class="seed-body">
+          <div class="seed-option-block">
+            <div class="seed-option-item" id="seed-option-random">Random</div>
+            <div class="seed-option-item active" id="seed-option-custom">Custom</div>
+          </div>
+          <input class="seed-value" id="seed-value"></input>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="dropdown">
+          <div class="dropdown-header">
+            <span id="dropdown-label">Choose a Sampler:</span>
+            <i class="arrow down"></i>
+          </div>
+          <div class="dropdown-options">
+            <!-- Options will be added dynamically here -->
+          </div>
+        </div>
+      </div>
+
+      <div style="flex-grow: 1"></div>
+      <button class="telegram-button" id="use-settings-button">
+        Use settings
+      </button>
+    </div>
+    <script src="../data_config.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="model-details.js"></script>
+  </body>
+</html>
